@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -52,16 +52,17 @@
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
+                <form id="registerForm" action="/login" method="post">
                 <div class="form sign-in">
                     <div class="input-group">
                         <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        <input type="text" name="username" placeholder="Username">
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        <input type="password" name="password" placeholder="Password">
                     </div>
-                    <button>
+                    <button type="submit">
                         로그인
                     </button>
                     <p>
@@ -78,6 +79,7 @@
                         </b>
                     </p>
                 </div>
+                </form>
             </div>
             <div class="form-wrapper">
 
