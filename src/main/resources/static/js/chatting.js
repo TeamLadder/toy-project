@@ -45,7 +45,7 @@ function newMessage() {
         return false;
     }
     // 보낸 메시지를 채팅창에 추가하고 입력창 비우기
-    $('<li class="sent"><!--<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />--><p>' + message + '</p></li>').appendTo($('.messages ul'));
+    $('<li class="sent"><!--<img src="../static/img/짱구1.jpeg" alt="" />--><p>' + message + '</p></li>').appendTo($('.messages ul'));
     $('.message-input input').val(null);
     // 활성화된 연락처의 프리뷰에 사용자의 메시지를 표시
     $('.contact.active .preview').html('<span>You: </span>' + message);
