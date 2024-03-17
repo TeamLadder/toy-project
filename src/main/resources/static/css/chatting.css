@@ -751,6 +751,7 @@ body {
 
 #frame .content .message-input {
     position: absolute;
+    background: var(--white);
     bottom: 0;
     width: 100%;
     z-index: 99;
