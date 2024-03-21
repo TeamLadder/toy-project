@@ -25,7 +25,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
-                        auth.requestMatchers("/login", "/signup", "/user").permitAll()
+                        auth.requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
                         .defaultSuccessUrl("/chatting"))
