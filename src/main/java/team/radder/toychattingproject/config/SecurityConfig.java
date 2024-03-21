@@ -26,8 +26,8 @@ public class SecurityConfig {
     // 특정 HTTP 요청에 대한 웹 기반 보안 구성, filterChain() 메서드 정의
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정, /login, /signup, /user에 대한 요청은 모두 인증을 거치지 않고 접근이 가능함.permitAll()
-                        auth.requestMatchers("/login", "/user").permitAll()
+        httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
+                        auth.requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
                         .defaultSuccessUrl("/chatting")

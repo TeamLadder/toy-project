@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ko">
 <head>
+    <!-- 소켓 통신 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
     <!-- 메타태그 및 페이지 타이틀 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -12,10 +15,15 @@
     <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
     <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
     <script src="https://use.typekit.net/hoy3lrg.js"></script>
-    <script>try {
-        Typekit.load({async: true});
-    } catch (e) {
-    }</script>
+    <script>
+        if (window.Typekit) {
+            try {
+                Typekit.load({ async: true });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    </script>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
@@ -210,53 +218,53 @@
         </div>
         <!-- 메시지 -->
         <div class="messages">
-            <ul>
+            <ul id="messageArea">
                 <!-- 메시지 -->
-                <li class="sent">
-                    <!-- 보낸 사람 프로필 이미지 -->
-                    <!--<img src="../static/img/짱구1.jpeg" alt=""/>-->
-                    <!-- 메시지 내용 -->
-                    <p>내가 어떻게 배심원들을 시켜 당신을 믿게 하란 말입니까?!</p>
-                </li>
-                <li class="replies">
-                    <img src="/img/로봇소년1.jpg" alt=""/>
-                    <p>벽에 기대면 망할 놈을 부수세요.</p>
-                </li>
-                <li class="replies">
-                    <img src="/img/로봇소년1.jpg" alt=""/>
-                    <p>변명은 선수권대회에서 이기지 못합니다.</p>
-                </li>
-                <li class="sent">
-                    <!--<img src="../static/img/짱구1.jpeg" alt=""/>-->
-                    <p>그래요, 마이클 조던이 그렇게 말했나요?</p>
-                </li>
-                <li class="replies">
-                    <img src="/img/로봇소년1.jpg" alt=""/>
-                    <p>아니요, 제가 얘기를 했어요.</p>
-                </li>
-                <li class="replies">
-                    <img src="/img/로봇소년1.jpg" alt=""/>
-                    <p>누군가가 당신의 머리에 총을 들이댈 때 당신의 선택은 무엇입니까?</p>
-                </li>
-                <li class="sent">
-                    <!--<img src="../static/img/짱구1.jpeg" alt=""/>-->
-                    <p>무슨 소리예요? 그들이 시키는 대로 하거나 총을 쏴요.</p>
-                </li>
-                <li class="replies">
-                    <img src="/img/로봇소년1.jpg" alt=""/>
-                    <p>틀렸습니다. 총을 가져가거나, 더 큰 총을 꺼내거나, 그들을 허세라고 부르거나, 다른 백46가지 일을 합니다.</p>
-                </li>
+<!--                <li class="sent">-->
+<!--                    &lt;!&ndash; 보낸 사람 프로필 이미지 &ndash;&gt;-->
+<!--                    &lt;!&ndash;<img src="img/짱구1.jpeg" alt=""/>&ndash;&gt;-->
+<!--                    &lt;!&ndash; 메시지 내용 &ndash;&gt;-->
+<!--                    <p>내가 어떻게 배심원들을 시켜 당신을 믿게 하란 말입니까?!</p>-->
+<!--                </li>-->
+<!--                <li class="replies">-->
+<!--                    <img src="img/로봇소년1.jpg" alt=""/>-->
+<!--                    <p>벽에 기대면 망할 놈을 부수세요.</p>-->
+<!--                </li>-->
+<!--                <li class="replies">-->
+<!--                    <img src="img/로봇소년1.jpg" alt=""/>-->
+<!--                    <p>변명은 선수권대회에서 이기지 못합니다.</p>-->
+<!--                </li>-->
+<!--                <li class="sent">-->
+<!--                    &lt;!&ndash;<img src="img/짱구1.jpeg" alt=""/>&ndash;&gt;-->
+<!--                    <p>그래요, 마이클 조던이 그렇게 말했나요?</p>-->
+<!--                </li>-->
+<!--                <li class="replies">-->
+<!--                    <img src="img/로봇소년1.jpg" alt=""/>-->
+<!--                    <p>아니요, 제가 얘기를 했어요.</p>-->
+<!--                </li>-->
+<!--                <li class="replies">-->
+<!--                    <img src="img/로봇소년1.jpg" alt=""/>-->
+<!--                    <p>누군가가 당신의 머리에 총을 들이댈 때 당신의 선택은 무엇입니까?</p>-->
+<!--                </li>-->
+<!--                <li class="sent">-->
+<!--                    &lt;!&ndash;<img src="img/짱구1.jpeg" alt=""/>&ndash;&gt;-->
+<!--                    <p>무슨 소리예요? 그들이 시키는 대로 하거나 총을 쏴요.</p>-->
+<!--                </li>-->
+<!--                <li class="replies">-->
+<!--                    <img src="img/로봇소년1.jpg" alt=""/>-->
+<!--                    <p>틀렸습니다. 총을 가져가거나, 더 큰 총을 꺼내거나, 그들을 허세라고 부르거나, 다른 백46가지 일을 합니다.</p>-->
+<!--                </li>-->
             </ul>
         </div>
         <!-- 메시지 입력 -->
         <div class="message-input">
             <div class="wrap">
                 <!-- 메시지 입력창 -->
-                <input type="text" placeholder="메시지를 입력하세요..."/>
+                <input type="text" id="messageInput" placeholder="메시지를 입력하세요..."/>
                 <!-- 첨부 파일 아이콘 -->
                 <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
                 <!-- 전송 버튼 -->
-                <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <button class="submit" id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
             </div>
         </div>
     </div>

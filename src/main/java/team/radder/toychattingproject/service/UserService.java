@@ -25,4 +25,8 @@ public class UserService {
                         .build()
         );
     }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found id" + id));
+    }
 }
