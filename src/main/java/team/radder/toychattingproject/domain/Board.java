@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import team.radder.toychattingproject.domain.dto.BoardRequest;
+import team.radder.toychattingproject.domain.dto.BoardResponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +43,11 @@ public class Board {
     @OneToMany(mappedBy = "board")
     private List<Comment> comments = new ArrayList<>();
 
+    public Board(BoardRequest request, User user) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
+        this.user = user;
+    }
 
     // -------DTO 작성 후 생성 작업 필요-------
     public void update(String title,String content){
@@ -48,4 +55,7 @@ public class Board {
         this.content = content;
     }
 
+    public BoardResponse toResponse() {
+        return new BoardResponse(this);
+    }
 }
