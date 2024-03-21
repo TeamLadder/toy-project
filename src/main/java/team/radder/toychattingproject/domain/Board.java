@@ -54,8 +54,4 @@ public class Board {
         this.title = title;
         this.content = content;
     }
-
-    public BoardResponse toResponse() {
-        return new BoardResponse(this);
-    }
 }

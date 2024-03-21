@@ -47,7 +47,8 @@ public class BoardController {
             @PathVariable Long id
     ) {
         Board board = boardService.findById(id);
-        return ResponseEntity.ok(board.toResponse());
+        BoardResponse response = new BoardResponse(board);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/api/boards/{id}")

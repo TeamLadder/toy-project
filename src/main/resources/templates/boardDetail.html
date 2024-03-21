@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>게시글 상세</title>
-    <link rel="stylesheet" href="../static/css/boardDetail.css"/>
+    <link rel="stylesheet" href="/css/boardDetail.css"/>
 </head>
 <body>
 <div class="board_wrap">
     <div class="board_view">
 
         <div class="board_view_top">
-            <div class="title" th:text="${post.title}">글 제목이 들어갑니다.</div>
+            <input type="hidden" id="board-id" th:value="${board.id}">
+            <div class="title" th:text="${board.title}">글 제목이 들어갑니다.</div>
             <div class="view_btn">
                 <div class="box">
-                    <a th:href="@{/posts/{type}(type=${post.type})}" class="on">목록</a>
-                    <a th:href="@{/posts/update/{id}(id=${post.id})}">수정</a>
-                    <form th:action="@{/posts/delete/{type}/{id}(type=${post.type}, id=${post.id})}" method="post">
-                        <button type="submit">삭제</button>
-                    </form>
+                    <a th:href="@{/boards}" class="on">목록</a>
+                    <button type="button" id="modify-btn"
+                            th:onclick="|location.href='@{/boards/new-article?id={boardId}(boardId=${board.id})}'|"
+                            class="btn btn-primary btn-sm">수정</button>
+                    <button id="delete-btn">삭제</button>
                 </div>
             </div>
         </div>
 <!--        <div style="text-align: right; padding-right: 40px;">-->
-<!--            <form th:action="@{/posts/likes/{postId} (postId=${post.id})}" method="post">-->
+<!--            <form th:action="@{/boards/likes/{boardId} (boardId=${board.id})}" method="board">-->
 <!--                <button type="submit">좋아요</button>-->
 <!--            </form>-->
 <!--        </div>-->
-        <div class="cont" th:text="${post.content}">글 내용</div>
+        <div class="cont">글 내용</div>
         <div class="info">
             <dl>
                 <dt>작성일</dt>
-                <dd th:text="${post.createdAt}">2023 02 17</dd>
+                <dd>2023 02 17</dd>
             </dl>
             <dl>
                 <dt>조회</dt>
-                <dd th:text="${post.hits}">33</dd>
+                <dd> <!--th:text="${board.hits}"-->33</dd>
             </dl>
 <!--            <dl>-->
 <!--                <dt>좋아요</dt>-->
-<!--                <dd th:text="${post.likes}">11</dd>-->
+<!--                <dd th:text="${board.likes}">11</dd>-->
 <!--            </dl>-->
             <dl class="borad_view_date" style="float: right">
-                <dt th:text="${post.user.author}">오르미</dt>
+                <dt>오르미</dt>
             </dl>
 
         </div>
     </div>
 
 </div>
-<form style="margin-top:-80px;" th:action="@{/posts/create/{type}/{id}/comment(type=${post.type}, id=${post.id})}"
-      th:object="${commentDto}" method="post">
+<form style="margin-top:-80px;" method="post">
     <div class="board_wrap">
         <div class="board_view_wrap">
             <div class="board_view">
                 <div class="comment">
                     <div class="comment_write">
                         <dd class="comment_write_detail">
-                            <input style="margin-left:15px;" type="text" placeholder=" 댓글을 입력하세요"
-                                   th:field="*{content}"/>
+                            <input style="margin-left:15px;" type="text" placeholder=" 댓글을 입력하세요"/>
                         </dd>
                         <dt class="comment_btn">
                             <button type="submit" class="on">댓글 달기</button>
@@ -69,18 +68,17 @@
         </div>
     </div>
 </form>
-<div class="comment" th:each="comment : ${post.comments}">
+<div class="comment">
     <div class="board_wrap">
         <div class="board_view_wrap">
             <div class="board_view" id="comment-wrap" style="margin-top: -80px;">
                 <div class="comment_writer">
-                    <div th:text="${comment.user.author}">댓글 유저 정보</div>
+                    <div>댓글 유저 정보</div>
                 </div>
                 <div class="comment_content">
-                    <div th:text="${comment.content}">댓글 내용이 들어갑니다.</div>
+                    <div>댓글 내용이 들어갑니다.</div>
                 </div>
-                <form th:action="@{/posts/delete/{type}/{postId}/comment/{commentId}
-              (type=${post.type}, postId=${post.id}, commentId=${comment.id})}" method="post">
+                <form method="post">
                     <button type="submit">삭제</button>
                 </form>
             </div>
@@ -88,6 +86,7 @@
     </div>
 </div>
 
+<script src="/js/board.js"></script>
 
 </body>
 </html>
