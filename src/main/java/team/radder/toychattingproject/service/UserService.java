@@ -20,8 +20,8 @@ public class UserService {
         return userRepository.save(
                 User.builder()
                         .email(dto.getEmail())
-                        .password(encoder.encode(dto.getPassword()))
-                        .nickname(dto.getNickname())// 패스워드 암호화
+                        .password(encoder.encode(dto.getPassword())) // 패스워드 암호화
+                        .nickname(dto.getNickname())
                         .build()
         );
     }
