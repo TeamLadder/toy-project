@@ -35,6 +35,7 @@ public class BoardService {
     public Board update(Long id, BoardRequest request) {
         Board updated = findById(id);
         updated.update(request.getTitle(), request.getContent());
+        boardRepository.save(updated);
         return updated;
     }
 }
