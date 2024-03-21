@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comment_id",updatable = false)
+    @Column(name = "comment_id", updatable = false)
     private Long id;
 
     @Column(name = "content")
@@ -29,11 +29,11 @@ public class Comment {
     private LocalDateTime modifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="board_id")
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     // -------DTO 작성 후 생성 작업 필요-------

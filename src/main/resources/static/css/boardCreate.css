@@ -1,11 +1,10 @@
 
-.board_wrap {
+/*.board_wrap {
     width: 100%;
     min-width: 320px;
     padding: 0 30px;
     box-sizing: border-box;
-
-}
+}*/
 
 .board_create {
     width: 100%;
@@ -62,7 +61,8 @@ a {
 }
 
 .board_wrap {
-    width: 1000px;
+    max-width: 1000px;
+    min-width: 700px;
     margin: 100px auto;
 }
 

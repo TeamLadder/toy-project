@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         <div class="col-sm-10">
             <h1>Team Ladder Notice Board</h1></div>
         <div class="col-sm-2">
-            <a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="../static/img/ladder.png"></a>
+            <a href="/users" class="pull-right"><img title="profile image" class="img-responsive" src="/img/ladder.png"></a>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,6 @@
                             <tr>
                                 <th>번호</th>
                                 <th>제목</th>
-                                <th>내용</th>
                                 <th>작성자 </th>
                                 <th>생성 일시 </th>
                                 <th>조회수 </th>
@@ -42,7 +41,14 @@
                             </thead>
                             <!--/이부분에 for each thyme leaf문으로 게시물 정보 계속 가져오면 될듯-->
                             <tbody id="items">
-                            <tr>
+                            <tr th:each="item: ${boards}">
+                                <td th:text="${item.id}"></td>
+                                <td style="font-weight: bold;"><a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a></td>
+                                <td th:text="${item.user.nickname}"></td>
+                                <td th:text="${item.createdAt}"></td>
+                                <td></td>
+                            </tr>
+                            <!--<tr>
                                 <td>Table cell</td>
                                 <td>Table cell</td>
                                 <td>Table cell</td>
@@ -65,7 +71,7 @@
                                 <td>Table cell</td>
                                 <td>Table cell</td>
                                 <td>Table cell</td>
-                            </tr>
+                            </tr>-->
                             <!-- Additional table rows can be added here -->
                             </tbody>
                         </table>
