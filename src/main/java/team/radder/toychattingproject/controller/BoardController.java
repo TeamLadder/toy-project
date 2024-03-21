@@ -1,5 +1,6 @@
 package team.radder.toychattingproject.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,13 +15,12 @@ import team.radder.toychattingproject.service.UserService;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class BoardController {
     private final BoardService boardService;
-    private final UserService userService;  // test용. TODO: 나중에 지우기
 
-    public BoardController(BoardService boardService, UserService userService) {
+    public BoardController(BoardService boardService) {
         this.boardService = boardService;
-        this.userService = userService;
     }
 
     @PostMapping("/api/boards")
@@ -28,8 +28,6 @@ public class BoardController {
             @RequestBody BoardRequest request,
             @AuthenticationPrincipal User user
     ) {
-        user = userService.findById(1L);    // test용. TODO: 나중에 지우기
-
         Board board = boardService.save(request, user);
         BoardResponse response = new BoardResponse(board);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

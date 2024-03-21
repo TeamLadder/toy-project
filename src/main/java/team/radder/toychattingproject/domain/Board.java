@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.radder.toychattingproject.domain.dto.BoardRequest;
-import team.radder.toychattingproject.domain.dto.BoardResponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     public Board(BoardRequest request, User user) {
