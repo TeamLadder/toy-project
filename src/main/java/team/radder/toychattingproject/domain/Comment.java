@@ -1,10 +1,12 @@
 package team.radder.toychattingproject.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import team.radder.toychattingproject.dto.CommentResponse;
 
 import java.time.LocalDateTime;
 
@@ -36,8 +38,26 @@ public class Comment {
     @JoinColumn(name="user_id")
     private User user;
 
-    // -------DTO 작성 후 생성 작업 필요-------
+    @Builder
+    public Comment(String content, User user, Board board){
+        this.content = content;
+        this.user = user;
+        this.board = board;
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
+    }
+
+    public CommentResponse toResponse(){
+        return CommentResponse.builder()
+                .content(content)
+                .nickname(user.getNickname())
+                .created_at(createdAt)
+                .modified_at(modifiedAt)
+                .build();
+    }
+
     public void update(String content){
         this.content = content;
+        this.modifiedAt = LocalDateTime.now();
     }
 }
