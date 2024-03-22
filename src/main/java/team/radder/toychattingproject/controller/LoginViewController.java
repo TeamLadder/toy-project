@@ -12,8 +12,8 @@ public class LoginViewController {
     }
 
     //한 html에서 하므로 필요없음
-    @GetMapping("/signup")
+ /*   @GetMapping("/signup")
     public String signup() {
         return "login2";
-    }
+    }*/
 }

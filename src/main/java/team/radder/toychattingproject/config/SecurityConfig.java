@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import team.radder.toychattingproject.domain.Role;
 import team.radder.toychattingproject.security.CustomAuthenticationFailureHandler;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
@@ -27,9 +28,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
-                        auth.requestMatchers("/**").permitAll()
+//                        auth.requestMatchers("/**").permitAll()
+                        auth.requestMatchers("/login", "/user").permitAll()
+                                .requestMatchers("/admin/**", "/api/admin/**").hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated())
                 .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
+                        //찾아보니 이거 하니까 username으로 안받아도 되고 설정한 파라미터로 받을 수 있음.
+                        .usernameParameter("email")
+                        .passwordParameter("password")
                         .defaultSuccessUrl("/chatting")
                         .failureHandler(new CustomAuthenticationFailureHandler()) // 실패 핸들러 등록
                 )
