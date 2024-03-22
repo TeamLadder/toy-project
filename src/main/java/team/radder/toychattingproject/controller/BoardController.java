@@ -51,7 +51,8 @@ public class BoardController {
 
     @DeleteMapping("/api/boards/{id}")
     public ResponseEntity<Void> deleteBoard(
-            @PathVariable Long id
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user  // TODO: 인증자만 삭제 가능하도록 만들기
     ) {
         boardService.deleteById(id);
         return ResponseEntity.ok().build();
@@ -60,10 +61,15 @@ public class BoardController {
     @PutMapping("/api/boards/{id}")
     public ResponseEntity<BoardResponse> updateBoard(
             @PathVariable Long id,
-            @RequestBody BoardRequest request
+            @RequestBody BoardRequest request,
+            @AuthenticationPrincipal User user  // TODO: 인증자만 수정 가능하도록 만들기
     ) {
+        log.info("title: " + request.getTitle());
+        log.info("content: " + request.getContent());
         Board board = boardService.update(id, request);
         BoardResponse updated = new BoardResponse(board);
+        log.info("new-title: " + updated.getTitle());
+        log.info("new-content: " + updated.getContent());
         return ResponseEntity.ok(updated);
     }
 }

@@ -8,9 +8,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body style="max-width: 1000px; margin: auto">
 <hr>
-<div class="container bootstrap snippets bootdey">
+<div class="container bootstrap snippets bootdey" style="width: 100%;">
     <div class="row">
         <div class="col-sm-10">
             <h1>Team Ladder Notice Board</h1></div>
@@ -20,92 +20,42 @@
     </div>
     <div class="row">
         <!--/col-3-->
-        <div class="col-sm-9">
-            <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                <li><a href="#settings" data-toggle="tab">Settings</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자 </th>
-                                <th>생성 일시 </th>
-                                <th>조회수 </th>
-                            </tr>
-                            </thead>
-                            <!--/이부분에 for each thyme leaf문으로 게시물 정보 계속 가져오면 될듯-->
-                            <tbody id="items">
-                            <tr th:each="item: ${boards}">
-                                <td th:text="${item.id}"></td>
-                                <td style="font-weight: bold;"><a th:href="@{/boards/{id}(id=${item.id})}" th:text="${item.title}"></a></td>
-                                <td th:text="${item.user.nickname}"></td>
-                                <td th:text="${item.createdAt}"></td>
-                                <td></td>
-                            </tr>
-                            <!--<tr>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                            </tr>
-                            <tr>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                            </tr>
-                            <tr>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                                <td>Table cell</td>
-                            </tr>-->
-                            <!-- Additional table rows can be added here -->
-                            </tbody>
-                        </table>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-4 text-center">
-                                <ul class="pagination" id="myPager"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/table-resp-->
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+            <li><a href="#messages" data-toggle="tab">Messages</a></li>
+            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>생성 일시</th>
+                            <th>조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody id="items">
+                        <tr th:each="item: ${boards}">
+                            <td th:text="${item.id}"></td>
+                            <td style="font-weight: bold;"><a th:href="@{/boards/{id}(id=${item.id})}"
+                                                              th:text="${item.title}"></a></td>
+                            <td th:text="${item.user.nickname}"></td>
+                            <td th:text="${item.createdAt}"></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <hr>
                 </div>
-                <!--/tab-pane-->
-                <div class="tab-pane" id="messages">
-                    <h2></h2>
-                    <ul class="list-group">
-                        <li class="list-group-item text-muted">Inbox</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Here is your a link to the latest summary report from the..</a> 2.13.2014</li>
-                        <li class="list-group-item text-right"><a href="#" class="pull-left">Hi Joe, There has been a request on your account since that was..</a> 2.11.2014</li>
-                        <!-- Additional list items can be added here -->
-                    </ul>
-                </div>
-                <!--/tab-pane-->
-                <div class="tab-pane" id="settings">
-                    <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
-                        <!-- Form fields can be added here -->
-                    </form>
-                </div>
+                <!--/table-resp-->
             </div>
-            <!--/tab-content-->
         </div>
-        <!--/col-9-->
+        <!--/tab-content-->
+        <button th:onclick="|location.href='@{/boards/new-board}'|">글쓰기</button>
     </div>
     <!--/row-->
 </div>

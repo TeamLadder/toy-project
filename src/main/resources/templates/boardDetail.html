@@ -17,7 +17,7 @@
                 <div class="box">
                     <a th:href="@{/boards}" class="on">목록</a>
                     <button type="button" id="modify-btn"
-                            th:onclick="|location.href='@{/boards/new-article?id={boardId}(boardId=${board.id})}'|"
+                            th:onclick="|location.href='@{/boards/new-board?id={id}(id=${board.id})}'|"
                             class="btn btn-primary btn-sm">수정</button>
                     <button id="delete-btn">삭제</button>
                 </div>
@@ -28,11 +28,11 @@
 <!--                <button type="submit">좋아요</button>-->
 <!--            </form>-->
 <!--        </div>-->
-        <div class="cont">글 내용</div>
+        <div class="cont" th:text="${board.content}"></div>
         <div class="info">
             <dl>
                 <dt>작성일</dt>
-                <dd>2023 02 17</dd>
+                <dd th:text="${board.createdAt}"></dd>
             </dl>
             <dl>
                 <dt>조회</dt>
@@ -43,7 +43,7 @@
 <!--                <dd th:text="${board.likes}">11</dd>-->
 <!--            </dl>-->
             <dl class="borad_view_date" style="float: right">
-                <dt>오르미</dt>
+                <dt th:text="${board.user.nickname}"></dt>
             </dl>
 
         </div>
