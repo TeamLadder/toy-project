@@ -39,10 +39,12 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     implementation 'com.h2database:h2:2.1.214'
 
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'com.h2database:h2:2.1.214'
+
+    // 문서 자동화
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
 }
 
 tasks.named('test') {
