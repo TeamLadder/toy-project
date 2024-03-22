@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import team.radder.toychattingproject.domain.Role;
+import team.radder.toychattingproject.security.Role;
 import team.radder.toychattingproject.security.CustomAuthenticationFailureHandler;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
@@ -30,18 +30,21 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(auth ->              // 인증, 인가 설정
 //                        auth.requestMatchers("/**").permitAll()
                         auth.requestMatchers("/login", "/user").permitAll()
+                                //이 아래에 특정 action주소 설정하면 ADMIN 권한 있는 사람만 실행 가능하게함, action 주소 통일 form 논의해야함
                                 .requestMatchers("/admin/**", "/api/admin/**").hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated())
-                .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정
+                .formLogin(auth -> auth.loginPage("/login")     // 폼 기반 로그인 설정, 이 부분이 login2의 action="/login"부분에서 data 받는거 설정
                         //찾아보니 이거 하니까 username으로 안받아도 되고 설정한 파라미터로 받을 수 있음.
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/chatting")
                         .failureHandler(new CustomAuthenticationFailureHandler()) // 실패 핸들러 등록
+                        //TODO: 여기에 권한 인증 실패했을때 accessDenied.html 로 연결해주거나 message띄우고 boards로 리다이랙트 설정하는거 해야함
                 )
                 .logout(auth -> auth.logoutSuccessUrl("/login") // 로그아웃 설정
                         .invalidateHttpSession(true))
-                .csrf(auth -> auth.disable());                  // csrf 비활성화
+                .csrf(auth -> auth.disable());// csrf 비활성화
+
         return httpSecurity.build();
     }
 

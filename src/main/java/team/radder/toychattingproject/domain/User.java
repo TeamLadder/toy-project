@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import team.radder.toychattingproject.security.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,6 +33,9 @@ public class User implements UserDetails {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
+    @Column(name = "role", nullable = false)
+    private String role;
+
     @OneToMany(mappedBy = "user")
     private List<Board> boards = new ArrayList<>();
 
@@ -39,10 +43,11 @@ public class User implements UserDetails {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public User(String email, String password, String nickname, String auth) {
+    public User(String email, String password, String nickname, Role role) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.role = role.name();
     }
 
     @Override

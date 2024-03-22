@@ -1,5 +1,6 @@
 package team.radder.toychattingproject.service;
 
+import team.radder.toychattingproject.security.Role;
 import team.radder.toychattingproject.domain.User;
 import team.radder.toychattingproject.domain.dto.AddUserRequest;
 import team.radder.toychattingproject.repository.UserRepository;
@@ -22,6 +23,7 @@ public class UserService {
                         .email(dto.getEmail())
                         .password(encoder.encode(dto.getPassword())) // 패스워드 암호화
                         .nickname(dto.getNickname())
+                        .role(Role.USER)
                         .build()
         );
     }

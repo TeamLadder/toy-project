@@ -1,6 +1,7 @@
-INSERT INTO users (email, password, nickname) VALUES ('email1', 'password1', 'nickname1');
-INSERT INTO users (email, password, nickname) VALUES ('email2', 'password2', 'nickname2');
-INSERT INTO users (email, password, nickname) VALUES ('email3', 'password3', 'nickname3');
+-- TODO: 비밀번호를 이대로 넣으면 해쉬화 안돼서 해쉬화 시켜서 넣어주게 코드 수정해야함 / 일단 관리자 계정은 미리 넣어두고 나머지는 회원가입할때 USER 권한 갖게 만들어야 할거 같음
+INSERT INTO users (email, password, nickname, role) VALUES ('admin@admin', '1234', 'admin', 'ADMIN');
+INSERT INTO users (email, password, nickname, role) VALUES ('email2@email2', 'password2', 'nickname2', 'USER');
+INSERT INTO users (email, password, nickname, role) VALUES ('email3@email3', 'password3', 'nickname3', 'USE');
 
 INSERT INTO board (title, content, created_at, modified_at, user_id) VALUES ('제목1', '내용1', now(), now(), 1);
 INSERT INTO board (title, content, created_at, modified_at, user_id) VALUES ('제목2', '내용2', now(), now(), 2);
